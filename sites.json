@@ -10,7 +10,7 @@
     "name": "ruliweb",
     "label": "루리웹 핫딜",
     "url": "https://bbs.ruliweb.com/market/board/1020?view_best=1",
-    "enabled": false,
+    "enabled": true,
     "check_limit": 20
   },
   {
@@ -24,7 +24,7 @@
     "name": "ppomppu",
     "label": "뽐뿌 핫딜",
     "url": "https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&hotlist_flag=999",
-    "enabled": true,
+    "enabled": false,
     "check_limit": 20
   }
 ]
