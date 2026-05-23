@@ -3,14 +3,14 @@
     "name": "fmkorea",
     "label": "FM코리아 핫딜",
     "url": "https://www.fmkorea.com/index.php?mid=hotdeal&sort_index=pop&order_type=desc",
-    "enabled": false,
+    "enabled": true,
     "check_limit": 20
   },
   {
     "name": "ruliweb",
     "label": "루리웹 핫딜",
     "url": "https://bbs.ruliweb.com/market/board/1020?view_best=1",
-    "enabled": true,
+    "enabled": false,
     "check_limit": 20
   },
   {
