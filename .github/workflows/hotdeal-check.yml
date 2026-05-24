@@ -1,24 +1,20 @@
-name: Hotdeal Check
+name: Repository Check
 
 on:
-  schedule:
-    - cron: "*/10 * * * *"
+  push:
+  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: hotdeal-check
+  group: repository-check
   cancel-in-progress: false
 
 jobs:
   check:
     runs-on: ubuntu-latest
-
-    env:
-      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      PYTHONUNBUFFERED: "1"
 
     steps:
       - name: Check out repository
@@ -32,17 +28,8 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Run hotdeal check
-        run: python app.py
+      - name: Validate Python files
+        run: python -m py_compile app.py config.py notifier.py state_store.py crawlers/*.py
 
-      - name: Commit updated state
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/seen_posts.json
-          if git diff --cached --quiet; then
-            echo "No state changes to commit."
-            exit 0
-          fi
-          git commit -m "Update hotdeal seen state"
-          git push
+      - name: Validate JSON config
+        run: python -m json.tool sites.json > /dev/null

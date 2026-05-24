@@ -1,22 +1,24 @@
-# Multi Hotdeal Notifier
+# Hotdeal Monitor
 
-Python crawler that checks selected Korean hotdeal boards and sends Discord
-notifications for newly discovered posts.
+Python hotdeal monitoring automation service that checks selected Korean
+hotdeal boards and sends Discord notifications for newly discovered posts.
 
-The current production runtime is GitHub Actions. The application is designed as
-a one-shot job: each scheduled run loads the previous JSON state, checks enabled
-sites, sends notifications for unseen posts, and commits the updated state back
-to the repository.
+The project is intentionally lightweight: it uses direct HTTP requests,
+site-specific parsers, a JSON state file, and a Discord webhook. It is positioned
+as a small server-friendly notifier rather than a general-purpose crawler
+platform.
 
-## Production Runtime
+## Runtime Model
 
-- Scheduler: GitHub Actions cron
 - Entrypoint: `python app.py`
-- State: `state/seen_posts.json`
+- State: local JSON file at `state/seen_posts.json`
 - Notifications: Discord webhook
-- Runtime secret: `DISCORD_WEBHOOK_URL`
+- Site configuration: `sites.json`
+- Duplicate prevention: per-site post ID tracking
 
-The workflow is defined in `.github/workflows/hotdeal-check.yml`.
+`app.py` is a one-shot run. In production, run it from a small server, VM,
+cron, or another scheduler that preserves the local `state/` directory between
+runs.
 
 ## Supported Sites
 
@@ -32,26 +34,49 @@ Implemented but disabled by default:
 
 FMKorea is kept in the codebase, but `sites.json` disables it because it returns
 HTTP 430 from cloud environments often enough to make it unsuitable for the
-current GitHub Actions production run.
+current server-friendly default configuration.
 
-## GitHub Actions Setup
+Server-friendly operation may intentionally monitor fewer sources if a site is
+unstable from hosted or free-tier networks.
 
-1. Add the repository secret:
+## Configuration
 
-   ```text
-   DISCORD_WEBHOOK_URL=<discord webhook url>
-   ```
+For local or server runs, provide `DISCORD_WEBHOOK_URL` through the environment
+or a local `.env` file:
 
-2. Ensure the workflow has permission to commit state updates:
+```text
+DISCORD_WEBHOOK_URL=<discord webhook url>
+```
 
-   ```yaml
-   permissions:
-     contents: write
-   ```
+Site enablement is controlled in `sites.json`:
 
-3. Enable the scheduled workflow in GitHub Actions.
+```json
+{
+  "name": "fmkorea",
+  "enabled": false
+}
+```
 
-The workflow can also be started manually with `workflow_dispatch`.
+## GitHub Actions
+
+The repository workflow is a safety check for public GitHub release. It installs
+dependencies, validates Python files, and validates `sites.json`.
+
+It does not run the crawler, send Discord notifications, or commit runtime
+state. Scheduled crawler execution in GitHub Actions can be fragile when state is
+stored as a local JSON file, because each runner starts from a fresh checkout
+unless state is committed or stored externally.
+
+Committing runtime state from a scheduled workflow is possible, but it is brittle
+for a public repository:
+
+- state commits create repository noise
+- push conflicts can cause duplicate notifications on later runs
+- runtime state becomes public history
+- ignored state files and automatic commits work against each other
+
+For this project, persistent local state on a lightweight server is the safer
+default operating model.
 
 ## State Persistence
 
@@ -77,8 +102,7 @@ The file tracks seen post IDs by site:
 ```
 
 At the end of a run, `app.py` writes the JSON state only if new posts were saved.
-The GitHub Actions workflow commits `state/seen_posts.json` only when the file
-changed.
+`state/*.json` is ignored by Git because it is runtime data, not source code.
 
 ## Duplicate Prevention
 
@@ -121,13 +145,6 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-For local runs, provide `DISCORD_WEBHOOK_URL` through the environment or a local
-`.env` file:
-
-```text
-DISCORD_WEBHOOK_URL=<discord webhook url>
-```
-
 Run one check:
 
 ```bash
@@ -144,8 +161,6 @@ python app.py
 ├── notifier.py
 ├── state_store.py
 ├── sites.json
-├── state/
-│   └── seen_posts.json
 └── crawlers/
     ├── eomisae.py
     ├── fmkorea.py
@@ -156,7 +171,8 @@ python app.py
 ## Legacy / Migration Notes
 
 This project previously ran on an Oracle VM with systemd and APScheduler.
-Production has been migrated to GitHub Actions scheduled execution.
+It has since been simplified into a one-shot monitor that can be scheduled by
+the hosting environment.
 
 The following files are legacy components from the previous runtime:
 
@@ -167,12 +183,22 @@ The following files are legacy components from the previous runtime:
 They are not part of the current production GitHub Actions path. The current
 state store is JSON, not SQLite.
 
+## Known Limitations
+
+- External site HTML can change without notice and break parsers.
+- Free-tier networks and hosted runners may be blocked or rate limited.
+- Some sites block scraping from cloud environments; FMKorea is disabled by
+  default for this reason.
+- Runtime state should not be committed to a public repository.
+- GitHub Actions is useful for repository validation, but it is not ideal for
+  all crawler workloads that require durable local state.
+- This project favors simple failure-aware monitoring over broad site coverage.
+
 ## Operational Notes
 
-- Keep `state/seen_posts.json` committed.
-- Do not enable FMKorea in production unless HTTP 430 behavior has been
-  revalidated in GitHub Actions.
-- The workflow commits state updates using the GitHub Actions bot.
-- The workflow is triggered by `schedule` and `workflow_dispatch`, so state
-  commits do not create a workflow loop.
-
+- Keep `state/seen_posts.json` local to the runtime environment.
+- Do not enable FMKorea unless HTTP 430 behavior has been revalidated from the
+  target runtime network.
+- Prefer disabling fragile crawlers in `sites.json` instead of deleting them.
+- Treat crawler failures as expected operational events, not necessarily code
+  failures.

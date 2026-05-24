@@ -1,22 +1,36 @@
-# Virtual environment
+# Environment
+.env
+.env.*
+!.env.example
+
+# Virtual environments
 .venv/
 venv/
+env/
 
-# Environment variables
-.env
-
-# SQLite database
-posts.db
-
-# Python cache
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# IDE / Editor
+# Runtime state
+state/*.json
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs and temp files
+logs/
+*.log
+*.tmp
+tmp/
+temp/
+
+# IDE / editor
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS files
 .DS_Store
