@@ -37,6 +37,11 @@
           "title": "일체형 미니 보조배터리 5000mAh 2개 7505원",
           "url": "https://eomisae.co.kr/fs/188163775"
         },
+        "188178541": {
+          "first_seen_at": "2026-05-27T01:10:48+00:00",
+          "title": "파타고니아 배기스 5인치 4.7만원",
+          "url": "https://eomisae.co.kr/fs/188178541"
+        },
         "188179547": {
           "first_seen_at": "2026-05-26T23:47:25+00:00",
           "title": "컬리 [조선호텔] 양념 LA갈비 500g  15,100원",
@@ -97,6 +102,11 @@
           "title": "풀무원 샘물 생수, 무라벨, 2L, 24개  11,900원",
           "url": "https://eomisae.co.kr/fs/188280709"
         },
+        "188283571": {
+          "first_seen_at": "2026-05-27T01:10:48+00:00",
+          "title": "BHC 뿌링클 BBQ 황올 등 카카오",
+          "url": "https://eomisae.co.kr/fs/188283571"
+        },
         "188285592": {
           "first_seen_at": "2026-05-26T23:47:25+00:00",
           "title": "셀렉스 단백질 음료 36팩 3만원",
@@ -106,6 +116,36 @@
     },
     "ppomppu": {
       "seen_ids": {
+        "706736": {
+          "first_seen_at": "2026-05-27T01:10:51+00:00",
+          "title": "[카톡선물] 루메나 탁상용 무선 선풍기 FAN STAND 3Z (페이 27,810원/무료)",
+          "url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=112&hotlist_flag=999&no=706736"
+        },
+        "706758": {
+          "first_seen_at": "2026-05-27T01:10:51+00:00",
+          "title": "[네이버] (네멤) 신라면20개 11,950원, 너구리20개 12,740원 (다양/무료)",
+          "url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=112&hotlist_flag=999&no=706758"
+        },
+        "706859": {
+          "first_seen_at": "2026-05-27T01:10:51+00:00",
+          "title": "[네이버] 생수, 커피, 물티슈, 복사용지 20%쿠폰 (상품마다 다양/무료)",
+          "url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=112&hotlist_flag=999&no=706859"
+        },
+        "706869": {
+          "first_seen_at": "2026-05-27T01:10:52+00:00",
+          "title": "[G마켓] 26SS 역시즌 K2 수지다운 씬에어 뉴 바이브 W (145,480원/무료)",
+          "url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=112&hotlist_flag=999&no=706869"
+        },
+        "706872": {
+          "first_seen_at": "2026-05-27T01:10:52+00:00",
+          "title": "[네이버] 훈연 초벌 돼지막창 200g + 막창소스 (3,900원/4개이상무료)",
+          "url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=112&hotlist_flag=999&no=706872"
+        },
+        "706873": {
+          "first_seen_at": "2026-05-27T01:10:52+00:00",
+          "title": "[그리팅] 백진주,추청쌀,수향미,고시히카리,살코기햄,찜갈비,오리훈제,팝콘치킨,꿔바로우,떡갈비,클릭유 (다양/무료)",
+          "url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=112&hotlist_flag=999&no=706873"
+        },
         "706941": {
           "first_seen_at": "2026-05-26T23:47:27+00:00",
           "title": "[오늘의집] 서울우유 클릭유 950ml 8개 (10,185원/무료)",
@@ -305,10 +345,20 @@
           "title": "(크림)PS5 PRO 2TB 1,138,200원 (5)",
           "url": "https://bbs.ruliweb.com/market/board/1020/read/104363?view_best=1"
         },
+        "104364": {
+          "first_seen_at": "2026-05-27T01:10:45+00:00",
+          "title": "[네이버] scuf omega ps5 컨트롤러(249,000원) (16)",
+          "url": "https://bbs.ruliweb.com/market/board/1020/read/104364?view_best=1"
+        },
         "104365": {
           "first_seen_at": "2026-05-26T23:47:23+00:00",
           "title": "[대형마트] 홈플러스&롯데마트&이마트 이번주 전단행사 (5/28~6/3) (10)",
           "url": "https://bbs.ruliweb.com/market/board/1020/read/104365?view_best=1"
+        },
+        "104366": {
+          "first_seen_at": "2026-05-27T01:10:45+00:00",
+          "title": "[네이버] 플레이스테이션 스토어 기프트카드 3만원권 (27,900원) (9)",
+          "url": "https://bbs.ruliweb.com/market/board/1020/read/104366?view_best=1"
         }
       }
     }
